@@ -1,0 +1,7 @@
+select user from mysql.user
+show databases
+set password for 'gustavo' = '******';
+DROP DATABASE base_de_datos;
+DROP USER 'username'@'host';
+GRANT ALL PRIVILEGES ON pelos TO 'admin' WITH GRANT OPTION;
+UPDATE Registration SET age = 30 WHERE id in (100, 101)
