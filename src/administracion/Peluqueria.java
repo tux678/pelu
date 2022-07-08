@@ -129,13 +129,24 @@ public class Peluqueria extends JFrame {
 		mnAdministrador.add(mnAgregarAdministrador);
 		
 		JMenuItem mnSetAdmin = new JMenuItem("Modificar");
+		mnSetAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnAdministrador.add(mnSetAdmin);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Baja");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DelAdministradorGui admin = (DelAdministradorGui) DelAdministradorGui.eliminar();
+				escritorio.add(admin);
+				admin.setVisible(true);
+			}
+		});
 		mnAdministrador.add(mntmNewMenuItem);
 		mnAgregarAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdministradorGui admin = (AdministradorGui) AdministradorGui.agregarAdministrador();
+				AddAdministradorGui admin = (AddAdministradorGui) AddAdministradorGui.agregar();
 				escritorio.add(admin);
 				admin.setVisible(true);
 			}
@@ -151,6 +162,13 @@ public class Peluqueria extends JFrame {
 		mnSecretarix.add(mnSetSecretarix);
 		
 		JMenuItem mnBaja = new JMenuItem("Baja");
+		mnBaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DelSecretarixGui sec = (DelSecretarixGui) DelSecretarixGui.eliminar();
+				escritorio.add(sec);
+				sec.setVisible(true);
+			}
+		});
 		mnSecretarix.add(mnBaja);
 		
 		JMenu mnPro = new JMenu("Profesional");
@@ -163,6 +181,13 @@ public class Peluqueria extends JFrame {
 		mnPro.add(mnSetPro);
 		
 		JMenuItem mnBajaPro = new JMenuItem("Baja");
+		mnBajaPro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DelProfesionalGui pro = (DelProfesionalGui) DelSecretarixGui.eliminar();
+				escritorio.add(pro);
+				pro.setVisible(true);
+			}
+		});
 		mnPro.add(mnBajaPro);
 		mnAgregarProfesional.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

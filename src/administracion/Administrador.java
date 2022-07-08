@@ -2,6 +2,8 @@ package administracion;
 
 import java.sql.SQLException;
 
+import javax.swing.JTextField;
+
 import conexion.Conexion;
 
 public class Administrador extends Usuario {
@@ -29,5 +31,16 @@ public class Administrador extends Usuario {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void del(String usuario) throws ClassNotFoundException, SQLException {
+		String sql = "DELETE FROM Usuarios WHERE usuario ='" + usuario + "' AND rol = 'Administrador'";
+		Conexion cnx = Conexion.getConexion();
+		cnx.conectar();
+		cnx.update(sql);
+		cnx.desconectar();
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

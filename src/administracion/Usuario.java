@@ -1,7 +1,10 @@
 package administracion;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Objects;
+
+import conexion.Conexion;
 
 public abstract class Usuario {
 	private String usuario;
@@ -103,6 +106,8 @@ public abstract class Usuario {
 		this.categoria = Rol.valueOf(rol);
 		
 	}
+	
+
 
 	public abstract void setMenu(Peluqueria w);	
 }

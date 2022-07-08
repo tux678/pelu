@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class AdministradorGui extends UsuarioGui {
+public class AddAdministradorGui extends UsuarioGui {
 	
 	private static final int BTN_GUARDAR = 1;
-	private AdministradorGui() {
+	private AddAdministradorGui() {
 		super();
 		setTitle("Nuevo administrador");
 		JButton btnGuardar = (JButton) getContentPane().getComponent(BTN_GUARDAR);
@@ -19,21 +19,22 @@ public class AdministradorGui extends UsuarioGui {
 				try {
 					addAdministrador();
 					JOptionPane.showMessageDialog(null, "Datos guardados" );
-					dispose();
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage() );
+				} finally {
+					
+					dispose();
 				}
-				dispose();
 
 			}
 
 		});
 		
 	}
-	public static UsuarioGui agregarAdministrador() {
+	public static UsuarioGui agregar() {
 		if(usuario == null) {
-			usuario = new AdministradorGui();
+			usuario = new AddAdministradorGui();
 		}
 		return usuario;
 	}
