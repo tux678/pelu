@@ -7,12 +7,13 @@ import conexion.Conexion;
 
 public class Usuarios {
 	
-	private Usuario[] u = new Usuario[3];
+	private Usuario[] u = new Usuario[4];
 	
 	public Usuarios() {
-		u[0] = new Administrador();
-		u[1] = new Secretarix();
-		u[2] = new Profesional();
+		u[0] = new Admin();
+		u[1] = new Administrador();
+		u[2] = new Secretarix();
+		u[3] = new Profesional();
 	}
 	
 	public Usuario getUsuario(String log) throws SQLException {

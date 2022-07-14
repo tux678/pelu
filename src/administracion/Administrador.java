@@ -1,7 +1,9 @@
 package administracion;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import conexion.Conexion;
@@ -32,15 +34,21 @@ public class Administrador extends Usuario {
 		
 	}
 
-	public void del(String usuario) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE FROM Usuarios WHERE usuario ='" + usuario + "' AND rol = 'Administrador'";
-		Conexion cnx = Conexion.getConexion();
-		cnx.conectar();
-		cnx.update(sql);
-		cnx.desconectar();
+	@Override
+	public String getSelectString(String usuario) {
 		// TODO Auto-generated method stub
 		
+		return  "SELECT * FROM Usuarios WHERE usuario ='" + usuario + "' AND NOT rol = 'ADMIN'";
 	}
 
+	public String getRolStringSql() {
+		return " AND NOT rol = 'ADMIN'";
+	}
+
+	@Override
+	public String getDeleteSql(String usuario) {
+		// TODO Auto-generated method stub
+		return "DELETE FROM usuarios WHERE usuario = '" + usuario + "' AND NOT rol = 'ADMIN'" ;
+	}
 
 }

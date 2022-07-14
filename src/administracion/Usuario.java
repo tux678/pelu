@@ -1,5 +1,6 @@
 package administracion;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Objects;
@@ -55,6 +56,13 @@ public abstract class Usuario {
 		this.clave = log.split(",")[1].trim();
 	}
 
+	public Usuario(String usuario2, String nombre2, String apellido2) {
+		// TODO Auto-generated constructor stub
+		usuario = usuario2;
+		nombre = nombre2;
+		apellido = apellido2;
+	}
+
 	public String getUsuario() {
 		return usuario;
 	}
@@ -107,7 +115,18 @@ public abstract class Usuario {
 		
 	}
 	
+	
+	public abstract void setMenu(Peluqueria w);
 
+	public abstract String getSelectString(String usuario);
 
-	public abstract void setMenu(Peluqueria w);	
+	protected abstract String getRolStringSql();
+
+	public abstract String getDeleteSql(String usuario);
+
+	@Override
+	public String toString() {
+		return usuario + ", " + clave + ", " + categoria + ", " + nombre + ", " + apellido + ", " + direccion + ", "
+				+ localidad + ", " + telefono + ", " + email + ", " + fechaDeIngreso + "]";
+	}
 }

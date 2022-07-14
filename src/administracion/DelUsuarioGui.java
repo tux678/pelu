@@ -7,19 +7,21 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class DelProfesionalGui extends UsuarioGui {
-	private static final int BTN_GUARDAR = 1;
+import conexion.Conexion;
 
-	private DelProfesionalGui() {
+public class DelUsuarioGui extends SetUsuarioGui {
+	protected DelUsuarioGui() {
 		super();
-		setTitle("Baja profesional");
+		setTitle("Baja usuario");
 		JButton btnGuardar = (JButton) getContentPane().getComponent(BTN_GUARDAR);
 		btnGuardar.setText("Baja");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					delProfesional();
-					JOptionPane.showMessageDialog(null, "Baja exitosa" );
+					if( JOptionPane.showConfirmDialog(null, "Confirma Baja") == JOptionPane.YES_OPTION) {
+						delUsuario();
+						JOptionPane.showMessageDialog(null, "Baja exitosa" );
+					}
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, e1.getMessage() );
@@ -31,19 +33,23 @@ public class DelProfesionalGui extends UsuarioGui {
 			}
 
 		});
-		
+
 	}
+
 	public static UsuarioGui eliminar() {
 		if(usuario == null) {
-			usuario = new DelProfesionalGui();
+			usuario = new DelUsuarioGui();
 		}
 		return usuario;
 	}
 	
-	private void delProfesional() throws ClassNotFoundException, SQLException {
+	protected void delUsuario() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-		Profesional p = new Profesional();
-		p.del(getTxtUsuario().getText());
+		String sql = Peluqueria.getUsuarioActivo().getDeleteSql(getTxtUsuario().getText());
+		Conexion cnx = Conexion.getConexion();
+		cnx.conectar();
+		cnx.update(sql);
+		cnx.desconectar();
 	}
 
 }

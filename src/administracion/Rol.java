@@ -1,5 +1,5 @@
 package administracion;
 
 public enum Rol {
-	Administrador, Secretarix, Profesional;
+	ADMIN, Administrador, Secretarix, Profesional;
 }

@@ -22,6 +22,8 @@ import javax.swing.border.BevelBorder;
 import conexion.Conexion;
 
 import javax.swing.JRadioButton;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public abstract class UsuarioGui extends JInternalFrame {
 	private JTextField txtDir;
@@ -32,27 +34,21 @@ public abstract class UsuarioGui extends JInternalFrame {
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	protected static UsuarioGui usuario = null;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					UsuarioGui frame = getUsuarioGui();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private JPanel panelBasico;
+	private JPanel panelAlternativo;
+	protected static final int BTN_GUARDAR = 1;
 
 	/**
 	 * Create the frame.
 	 */
 	protected UsuarioGui() {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosed(InternalFrameEvent e) {
+				cerrar();
+				
+			}
+		});
 		setTitle("Usuario");
 		setBounds(100, 100, 676, 407);
 		getContentPane().setLayout(null);
@@ -106,32 +102,33 @@ public abstract class UsuarioGui extends JInternalFrame {
 		tabAlternativos.add(getTxtDir());
 		getTxtDir().setColumns(10);
 		
-		JLabel lblDir = new JLabel("direccion");
-		lblDir.setBounds(166, 46, 45, 13);
-		tabAlternativos.add(lblDir);
-		
 		txtLocal = new JTextField();
 		txtLocal.setBounds(293, 72, 96, 19);
 		tabAlternativos.add(txtLocal);
 		txtLocal.setColumns(10);
-		
-		JLabel lblLocal = new JLabel("Localidad");
-		lblLocal.setBounds(166, 75, 45, 13);
-		tabAlternativos.add(lblLocal);
 		
 		setTxtTel(new JTextField());
 		getTxtTel().setBounds(293, 101, 96, 19);
 		tabAlternativos.add(getTxtTel());
 		getTxtTel().setColumns(10);
 		
-		JLabel lblTel = new JLabel("Telefono");
-		lblTel.setBounds(166, 104, 45, 13);
-		tabAlternativos.add(lblTel);
-		
 		setTxtEmail(new JTextField());
 		getTxtEmail().setBounds(293, 130, 96, 19);
 		tabAlternativos.add(getTxtEmail());
 		getTxtEmail().setColumns(10);
+		
+		JLabel lblDir = new JLabel("direccion");
+		lblDir.setBounds(166, 46, 45, 13);
+		tabAlternativos.add(lblDir);
+		
+		
+		JLabel lblLocal = new JLabel("Localidad");
+		lblLocal.setBounds(166, 75, 45, 13);
+		tabAlternativos.add(lblLocal);
+		
+		JLabel lblTel = new JLabel("Telefono");
+		lblTel.setBounds(166, 104, 45, 13);
+		tabAlternativos.add(lblTel);
 		
 		JLabel lblEmail = new JLabel("Email");
 		lblEmail.setBounds(166, 133, 45, 13);
@@ -142,7 +139,6 @@ public abstract class UsuarioGui extends JInternalFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
-
 		});
 		btnGuardar.setMnemonic('G');
 		btnGuardar.setBounds(359, 340, 85, 21);
@@ -157,9 +153,31 @@ public abstract class UsuarioGui extends JInternalFrame {
 		btnCancelar.setBounds(487, 340, 85, 21);
 		getContentPane().add(btnCancelar);
 		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnBuscar.setVerifyInputWhenFocusTarget(false);
+		btnBuscar.setVisible(false);
+		btnBuscar.setBounds(231, 340, 85, 21);
+		getContentPane().add(btnBuscar);
+		
+		panelBasico = panel_2;
+		panelAlternativo = tabAlternativos;
+		
 	}
 	
-	
+	protected void limpiar() {
+		// TODO Auto-generated method stub
+		for(int i=0; i< 3; i++) {
+			( (JTextField) panelBasico.getComponent(i)).setText("");
+			( (JTextField) panelAlternativo.getComponent(i)).setText("");
+		}
+		( (JTextField) panelAlternativo.getComponent(3)).setText("");
+
+	}
+
 	public JTextField getTxtUsuario() {
 		return txtUsuario;
 	}
@@ -167,6 +185,7 @@ public abstract class UsuarioGui extends JInternalFrame {
 
 	public void setTxtUsuario(JTextField txtUsuario) {
 		this.txtUsuario = txtUsuario;
+		txtUsuario.setFocusCycleRoot(true);
 	}
 
 
@@ -227,5 +246,9 @@ public abstract class UsuarioGui extends JInternalFrame {
 
 	public void setTxtLocal(JTextField txtLocal) {
 		this.txtLocal = txtLocal;
+	}
+	
+	protected void cerrar() {
+		UsuarioGui.usuario = null;
 	}
 }

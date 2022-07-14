@@ -24,12 +24,19 @@ public class Profesional extends Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Profesional(String usuario, String nombre, String apellido) {
+		// TODO Auto-generated constructor stub
+		super(usuario, nombre, apellido);
+	}
+
 	@Override
 	public void setMenu(Peluqueria w) {
 		// TODO Auto-generated method stub
 		w.getJMenuBar().getMenu(1).getItem(0).setEnabled(false);
 		w.getJMenuBar().getMenu(1).getItem(1).setEnabled(false);
 		w.getJMenuBar().getMenu(1).getItem(2).setEnabled(false);
+		w.getJMenuBar().getMenu(1).getItem(3).setEnabled(false);
+		w.getJMenuBar().getMenu(1).getItem(4).setEnabled(false);
 	}
 
 	public void del(String usuario) throws ClassNotFoundException, SQLException {
@@ -40,6 +47,24 @@ public class Profesional extends Usuario {
 		cnx.update(sql);
 		cnx.desconectar();
 		
+	}
+
+	@Override
+	public String getSelectString(String usuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getRolStringSql() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDeleteSql(String usuario) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

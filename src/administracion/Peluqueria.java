@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import conexion.Conexion;
 import login.Login;
+import turnos.Turnos;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -20,6 +21,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import javax.swing.JToolBar;
+import javax.swing.Box;
 
 public class Peluqueria extends JFrame {
 
@@ -93,6 +96,7 @@ public class Peluqueria extends JFrame {
 	 * Create the frame.
 	 */
 	private Peluqueria() {
+		setTitle("Jara");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -106,6 +110,8 @@ public class Peluqueria extends JFrame {
 		mnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usuarioActivo = null;
+				dispose();
+				Cargardor.recargar();
 				
 			}
 		});
@@ -122,79 +128,53 @@ public class Peluqueria extends JFrame {
 		JMenu mnAdmin = new JMenu("Administracion");
 		menuBar.add(mnAdmin);
 		
-		JMenu mnAdministrador = new JMenu("Administrador");
-		mnAdmin.add(mnAdministrador);
-		
-		JMenuItem mnAgregarAdministrador = new JMenuItem("Agregar");
-		mnAdministrador.add(mnAgregarAdministrador);
-		
-		JMenuItem mnSetAdmin = new JMenuItem("Modificar");
-		mnSetAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		mnAdministrador.add(mnSetAdmin);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Baja");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DelAdministradorGui admin = (DelAdministradorGui) DelAdministradorGui.eliminar();
-				escritorio.add(admin);
-				admin.setVisible(true);
-			}
-		});
-		mnAdministrador.add(mntmNewMenuItem);
-		mnAgregarAdministrador.addActionListener(new ActionListener() {
+		JMenuItem mnAdAdmin = new JMenuItem("Agregar administrador");
+		mnAdAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddAdministradorGui admin = (AddAdministradorGui) AddAdministradorGui.agregar();
 				escritorio.add(admin);
 				admin.setVisible(true);
 			}
 		});
+		mnAdmin.add(mnAdAdmin);
 		
-		JMenu mnSecretarix = new JMenu("Secretarix");
-		mnAdmin.add(mnSecretarix);
-		
-		JMenuItem mnAddSecretarix = new JMenuItem("Agregar");
-		mnSecretarix.add(mnAddSecretarix);
-		
-		JMenuItem mnSetSecretarix = new JMenuItem("Modificar");
-		mnSecretarix.add(mnSetSecretarix);
-		
-		JMenuItem mnBaja = new JMenuItem("Baja");
-		mnBaja.addActionListener(new ActionListener() {
+		JMenuItem mnAgregarSecretarie = new JMenuItem("Agregar secretarie");
+		mnAgregarSecretarie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DelSecretarixGui sec = (DelSecretarixGui) DelSecretarixGui.eliminar();
-				escritorio.add(sec);
-				sec.setVisible(true);
-			}
-		});
-		mnSecretarix.add(mnBaja);
-		
-		JMenu mnPro = new JMenu("Profesional");
-		mnAdmin.add(mnPro);
-		
-		JMenuItem mnAgregarProfesional = new JMenuItem("Agregar");
-		mnPro.add(mnAgregarProfesional);
-		
-		JMenuItem mnSetPro = new JMenuItem("Modificar");
-		mnPro.add(mnSetPro);
-		
-		JMenuItem mnBajaPro = new JMenuItem("Baja");
-		mnBajaPro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DelProfesionalGui pro = (DelProfesionalGui) DelSecretarixGui.eliminar();
-				escritorio.add(pro);
-				pro.setVisible(true);
-			}
-		});
-		mnPro.add(mnBajaPro);
-		mnAgregarProfesional.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ProfesionalGui admin = (ProfesionalGui) ProfesionalGui.agregarProfesional();
+				AddSecretarieGui admin = (AddSecretarieGui) AddSecretarieGui.agregar();
 				escritorio.add(admin);
 				admin.setVisible(true);
-
+			}
+		});
+		mnAdmin.add(mnAgregarSecretarie);
+		
+		JMenuItem mnAddProfesional = new JMenuItem("Agregar profesional");
+		mnAddProfesional.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddProfesionalGui admin = (AddProfesionalGui) AddProfesionalGui.agregar();
+				escritorio.add(admin);
+				admin.setVisible(true);
+			}
+		});
+		mnAdmin.add(mnAddProfesional);
+		
+		JMenuItem mnActualizar = new JMenuItem("Actualizar datos");
+		mnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SetUsuarioGui admin = (SetUsuarioGui) SetUsuarioGui.cambiar();
+				escritorio.add(admin);
+				admin.setVisible(true);
+			}
+		});
+		mnAdmin.add(mnActualizar);
+		
+		JMenuItem mnBajaUsuarios = new JMenuItem("Baja usuarios");
+		mnAdmin.add(mnBajaUsuarios);
+		mnBajaUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DelUsuarioGui admin = (DelUsuarioGui) DelUsuarioGui.eliminar();
+				escritorio.add(admin);
+				admin.setVisible(true);
 			}
 		});
 		
@@ -213,6 +193,9 @@ public class Peluqueria extends JFrame {
 		JMenuItem mnActualizarMisDatos = new JMenuItem("Actualizar mis datos");
 		mnActualizarMisDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SetUsuarioGui admin = (SetUsuarioGui) SetUsuarioGui.cambiar();
+				escritorio.add(admin);
+				admin.setVisible(true);
 			}
 		});
 		mnAdmin.add(mnActualizarMisDatos);
@@ -220,6 +203,16 @@ public class Peluqueria extends JFrame {
 		
 		JMenu mnTurnos = new JMenu("Turnos");
 		menuBar.add(mnTurnos);
+		
+		JMenuItem mnMisTurnos = new JMenuItem("Mis turnos");
+		mnMisTurnos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Turnos frame = new Turnos();
+				escritorio.add(frame);
+				frame.setVisible(true);
+			}
+		});
+		mnTurnos.add(mnMisTurnos);
 		
 		JMenu mnInformes = new JMenu("Informes");
 		menuBar.add(mnInformes);
@@ -237,6 +230,10 @@ public class Peluqueria extends JFrame {
 			peluqueria = new Peluqueria();
 		}
 		return peluqueria;
+	}
+	
+	public static void limpiar() {
+		peluqueria = null;
 	}
 	
 	public static Usuario getUsuarioActivo() {
