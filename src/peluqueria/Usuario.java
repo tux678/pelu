@@ -37,6 +37,10 @@ public abstract class Usuario implements Serializable, Comparable<Usuario>{
 		this.setPassword(password);
 	}
 	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

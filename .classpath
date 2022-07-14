@@ -13,5 +13,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/mysql-jar/mysql-connector-java-8.0.29.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/jcalendar-1.4.zip"/>
+	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
