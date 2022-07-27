@@ -15,4 +15,15 @@ public final class Util {
 		return result;
 	}
 	
+	public static boolean esNumero(Object valor) {
+		try {
+			if (valor instanceof String) {
+				Double.parseDouble((String) valor);
+			}
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
 }

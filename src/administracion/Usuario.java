@@ -126,7 +126,8 @@ public abstract class Usuario {
 
 	@Override
 	public String toString() {
-		return usuario + ", " + clave + ", " + categoria + ", " + nombre + ", " + apellido + ", " + direccion + ", "
-				+ localidad + ", " + telefono + ", " + email + ", " + fechaDeIngreso + "]";
+		return usuario + ", " + ( categoria != null ?  categoria  + ", ": "") + nombre + ", " + apellido + ", " + (direccion != null ? direccion  + ", ": "" )
+				+ (localidad != null ? localidad  + ", " : "" ) + (telefono != null ? telefono + ", " : "" ) + (email != null ? email + ", " : "" )
+				+ (fechaDeIngreso != null ? fechaDeIngreso : "");
 	}
 }

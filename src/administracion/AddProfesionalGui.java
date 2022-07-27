@@ -51,10 +51,12 @@ public class AddProfesionalGui extends UsuarioGui {
 		Conexion cnx = Conexion.getConexion();
 		cnx.conectar();
 		cnx.update(sql);
-		sql = "CREATE TABLE IF NOT EXISTS " + getTxtUsuario().getText() +  "_trabajos ( id INT AUTO_INCREMENT PRIMARY KEY, nombreCliente VARCHAR(55) NOT NULL," 
+		sql = "CREATE TABLE IF NOT EXISTS " + getTxtUsuario().getText() 
+				+  "_trabajos ( id INT AUTO_INCREMENT PRIMARY KEY, nombreCliente VARCHAR(55) NOT NULL," 
 		+" fecha dateTIME NOT NULL DEFAULT NOW() unique, trabajo varchar(200) NOT NULL, tiempo int, importe DOUBLE NOT NULL)";
 		cnx.update(sql);
-		sql = "CREATE TABLE IF NOT EXISTS " + getTxtUsuario().getText() + "_turnos (id INT AUTO_INCREMENT PRIMARY KEY, fecha DATETIME NOT NULL DEFAULT NOW() unique, trabajo varchar(100), tiempo int, importe double)";
+		sql = "CREATE TABLE IF NOT EXISTS " + getTxtUsuario().getText() 
+				+ "_turnos (id INT AUTO_INCREMENT PRIMARY KEY, fecha DATETIME NOT NULL DEFAULT NOW() unique, cliente varchar(50), trabajo varchar(100), tiempo int, importe double)";
 		cnx.update(sql);
 		cnx.desconectar();
 		
