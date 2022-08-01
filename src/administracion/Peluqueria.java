@@ -3,11 +3,13 @@ package administracion;
 import java.awt.EventQueue;
 import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import conexion.Conexion;
 import login.Login;
+import turnos.MisTurnos;
 import turnos.Turnos;
 
 import javax.swing.JMenuBar;
@@ -21,9 +23,11 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
-import javax.swing.JToolBar;
-import javax.swing.Box;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
 
+@SuppressWarnings("serial")
 public class Peluqueria extends JFrame {
 
 	private JPanel contentPane;
@@ -96,8 +100,23 @@ public class Peluqueria extends JFrame {
 	 * Create the frame.
 	 */
 	private Peluqueria() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				for(int i= 0; i< escritorio.getComponentCount(); i++) {
+					try {
+						((JInternalFrame) escritorio.getComponent(i)).setClosed(true);
+//						((JFrame) e.getSource()).setDefaultCloseOperation(((JInternalFrame) escritorio.getComponent(i)).getDefaultCloseOperation());
+					} catch (PropertyVetoException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		setName("Jara");
 		setTitle("Jara");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -204,15 +223,25 @@ public class Peluqueria extends JFrame {
 		JMenu mnTurnos = new JMenu("Turnos");
 		menuBar.add(mnTurnos);
 		
-		JMenuItem mnMisTurnos = new JMenuItem("Mis turnos");
-		mnMisTurnos.addActionListener(new ActionListener() {
+		JMenuItem mnItTurnos = new JMenuItem("Turnos");
+		mnItTurnos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Turnos frame = new Turnos();
 				escritorio.add(frame);
 				frame.setVisible(true);
 			}
 		});
-		mnTurnos.add(mnMisTurnos);
+		mnTurnos.add(mnItTurnos);
+		
+		JMenuItem mntmMisTurnos = new JMenuItem("Mis turnos");
+		mntmMisTurnos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Turnos frame = new MisTurnos(getUsuarioActivo());
+				escritorio.add(frame);
+				frame.setVisible(true);
+			}
+		});
+		mnTurnos.add(mntmMisTurnos);
 		
 		JMenu mnInformes = new JMenu("Informes");
 		menuBar.add(mnInformes);

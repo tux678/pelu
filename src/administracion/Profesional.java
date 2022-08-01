@@ -37,6 +37,7 @@ public class Profesional extends Usuario {
 		w.getJMenuBar().getMenu(1).getItem(2).setEnabled(false);
 		w.getJMenuBar().getMenu(1).getItem(3).setEnabled(false);
 		w.getJMenuBar().getMenu(1).getItem(4).setEnabled(false);
+		w.getJMenuBar().getMenu(2).getItem(0).setEnabled(false);
 	}
 
 	public void del(String usuario) throws ClassNotFoundException, SQLException {
