@@ -25,7 +25,7 @@ public class Usuarios {
 		try {
 			cnx.conectar();
 			cnx.update("USE pelos;");
-			String sql = "SELECT usuario, clave, rol FROM usuarios WHERE usuario = '" + usuario[0] +
+			String sql = "SELECT usuario, clave, rol, id FROM usuarios WHERE usuario = '" + usuario[0] +
 			"' AND clave = '" + usuario[1] + "';";
 			rs = cnx.get(sql);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -37,6 +37,7 @@ public class Usuarios {
 			u[r.ordinal()].setUsuario(rs.getString(1));
 			u[r.ordinal()].setClave(rs.getString(2));
 			u[r.ordinal()].setCategoria(rs.getString(3));
+			u[r.ordinal()].setId(rs.getInt(4));
 			usr = u[r.ordinal()];
 		}
 		return usr;

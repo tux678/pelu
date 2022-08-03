@@ -103,21 +103,16 @@ public class Peluqueria extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				for(int i= 0; i< escritorio.getComponentCount(); i++) {
-					try {
-						((JInternalFrame) escritorio.getComponent(i)).setClosed(true);
-//						((JFrame) e.getSource()).setDefaultCloseOperation(((JInternalFrame) escritorio.getComponent(i)).getDefaultCloseOperation());
-					} catch (PropertyVetoException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				int respuesta = JOptionPane.showConfirmDialog(null, "Quiere abandonar la aplicacion?", "Jara",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (respuesta == JOptionPane.YES_OPTION) {
+					((JFrame) e.getSource()).dispose();
 				}
 			}
 		});
 		setName("Jara");
 		setTitle("Jara");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 810, 514);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

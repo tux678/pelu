@@ -29,6 +29,11 @@ public class Profesional extends Usuario {
 		super(usuario, nombre, apellido);
 	}
 
+	public Profesional(int id, String usuario, String nombre, String apellido) {
+		// TODO Auto-generated constructor stub
+		super(id, usuario, nombre, apellido);
+	}
+
 	@Override
 	public void setMenu(Peluqueria w) {
 		// TODO Auto-generated method stub

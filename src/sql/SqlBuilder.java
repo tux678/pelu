@@ -3,47 +3,40 @@ package sql;
 public class SqlBuilder {
 	
 	private enum Tablas{
-		usuarios, turnos;
+		usuarios, turnos, trabajos;
 	}
 	private static String sqlInsertIni = "insert into ";
 	private static String sqlUpdateIni = "update ";
 	private String sqlDeleteIni = "Delete from ";
 	private static String[][] tablas = new String[][] {
 		{"usuarios","(usuario ,nombre )","(?,?)"},
-		{"turnos","(fecha ,cliente ,trabajo ,tiempo , importe)","(?,?,?,?,?)",
-			" SET cliente = ?, trabajo = ?, tiempo = ?, importe = ? where id = ?"," where id = ?"}};
+		{"turnos","(idProfesional, fecha ,cliente ,trabajo ,tiempo , importe, hecho)","(?,?,?,?,?, ?, ?)",
+			" SET cliente = ?, trabajo = ?, tiempo = ?, importe = ?, hecho= ? where id = ?"," where id = ?"},
+		{"trabajos","(idProfesional, fecha ,cliente ,trabajo ,tiempo , importe)","(?,?,?,?,?, ?)",
+				" SET cliente = ?, trabajo = ?, tiempo = ?, importe = ? where id = ?"," where id = ?"}};
 	private StringBuilder sqlInsert;
 	private StringBuilder sqlUpdate;
 	private StringBuilder sqlDelete;
-	private Tablas nombreCorto;
 
 	public void crearSqlInsert(String tabla) {
-		setNombreCorto(tabla);
 		sqlInsert = new StringBuilder(sqlInsertIni);
 		sqlInsert.append(tabla);
-		sqlInsert.append(tablas[nombreCorto.ordinal()][1]);
+		sqlInsert.append(tablas[Tablas.valueOf(tabla).ordinal()][1]);
 		sqlInsert.append(" values ");
-		sqlInsert.append(tablas[nombreCorto.ordinal()][2]);
+		sqlInsert.append(tablas[Tablas.valueOf(tabla).ordinal()][2]);
 		
 	}
 	
 	public void crearSqlUpdate(String tabla) {
-		setNombreCorto(tabla);
 		sqlUpdate = new StringBuilder(sqlUpdateIni);
 		sqlUpdate.append(tabla);
-		sqlUpdate.append(tablas[nombreCorto.ordinal()][3]);
+		sqlUpdate.append(tablas[Tablas.valueOf(tabla).ordinal()][3]);
 	}
 	
-	private void setNombreCorto(String tabla) {
-		// TODO Auto-generated method stub
-		String[] t = tabla.split("_");
-		nombreCorto = Tablas.valueOf(t[t.length-1]);
-	}
-
 	public void agregarParametros(int cantidad) {
 		for(int i = 0; i < cantidad; i++) {
 			sqlInsert.append(", ");
-			sqlInsert.append(tablas[nombreCorto.ordinal()][1]);
+//			sqlInsert.append(tablas[Tablas.valueOf(tabla).ordinal()][1]);
 		}
 	}
 	public String getSqlStringInsert() {
@@ -54,10 +47,9 @@ public class SqlBuilder {
 	}
 
 	public void crearSqlDelete(String tabla) {
-		setNombreCorto(tabla);
 		this.sqlDelete = new StringBuilder(sqlDeleteIni ); 
 		sqlDelete.append(tabla);
-		sqlDelete.append(tablas[nombreCorto.ordinal()][4]);
+		sqlDelete.append(tablas[Tablas.valueOf(tabla).ordinal()][4]);
 	}
 
 	public String getSqlStringDelete() {

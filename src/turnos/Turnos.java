@@ -47,7 +47,7 @@ import javax.swing.event.InternalFrameEvent;
 
 @SuppressWarnings("serial")
 class ColorFilasEspeciales extends DefaultTableCellRenderer {
-	
+	Font fontTurnoAsistido;
 	public ColorFilasEspeciales(int Colpatron)
 	{
 	}
@@ -60,17 +60,31 @@ class ColorFilasEspeciales extends DefaultTableCellRenderer {
 	public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column)
 	{        
 	    super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+	    fontTurnoAsistido = new Font(table.getFont().getName(), Font.ITALIC, 12);
 	      if(esTurnoOcupado(table, row))
 	    {
-	    	if (selected) {
-	    		
-	    		this.setForeground(Color.black);
-	    		this.setBackground(new Color(176,196,222));
-	    	}else {
-	    		
-	    		this.setForeground(new Color(128,0,0));
-	    		this.setBackground(new Color(200,200,200));
-	    	}
+	    	  if (esTurnoAsistido(table, row)){
+	  	    	this.setFont(fontTurnoAsistido);
+	  	    	if (selected) {
+	  	    		this.setForeground(Color.gray);
+	  	    		this.setBackground(new Color(176,196,222));
+	  	    	}else {
+	  	    		
+	  	    		this.setForeground(Color.gray);
+	  	    		this.setBackground(new Color(200,200,200));
+	  	    	}
+	    	  }else {
+	    		  
+	    		  if (selected) {
+	    			  
+	    			  this.setForeground(Color.black);
+	    			  this.setBackground(new Color(176,196,222));
+	    		  }else {
+	    			  
+	    			  this.setForeground(new Color(128,0,0));
+	    			  this.setBackground(new Color(200,200,200));
+	    		  }
+	    	  }
 	    }else {
 	  	  if (selected) {
 			  this.setBackground(new Color(135,206,250));
@@ -85,7 +99,11 @@ class ColorFilasEspeciales extends DefaultTableCellRenderer {
 	    }
 	    return this;
 	  }
-	
+	private boolean esTurnoAsistido(JTable turnos, int fila) {
+		// TODO Auto-generated method stub
+		return turnos.getValueAt(fila, 10) != null ? (Boolean) turnos.getValueAt(fila, 10): false;
+	}
+
 }
 
 @SuppressWarnings("serial")
@@ -105,60 +123,50 @@ class GestionCeldas extends DefaultTableCellRenderer
 	   value, boolean isSelected, boolean hasFocus, int row, int column) 
 	   {
 	      Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	      Font fontTurnoAsistido = new Font(table.getFont().getName(), Font.ITALIC, 12);
 	      if(Turnos.esColumnaNumerica(column)) {
 	    	  ((JLabel) cell).setHorizontalAlignment(JLabel.RIGHT);
 	    	  ((JLabel) cell).setHorizontalTextPosition(JLabel.RIGHT);
-		      if(esTurnoOcupado(table, row))
-			    {
-			    	if (isSelected) {
-			    		
-			    		cell.setForeground(Color.black);
-			    		cell.setBackground(new Color(176,196,222));
-			    	}else {
-			    		
-			    		cell.setForeground(new Color(128,0,0));
-			    		cell.setBackground(new Color(200,200,200));
-			    	}
-			    }else {
-			  	  if (isSelected) {
-					  cell.setBackground(new Color(135,206,250));
-					  cell.setForeground(Color.black);
-					  
-				  }else {
-					  
-					  cell.setBackground(new Color(220,220,220));
-					  cell.setForeground( Color.blue);
-				  }
-			
-			    }
-	      }else if(Turnos.esColumnaHora(column)){
-	    	  
-	    	  if (esTurnoOcupado(table, row)) {
-	    		  if(isSelected) {
-	    			  
-	    			  cell.setBackground(new Color(0,150,200));
-	    			  cell.setForeground(Color.white);
-	    			  
-	    		  }else {
-	    			  cell.setForeground(new Color(128,0,0));
-	    			  cell.setBackground(bg);
-	    		  }
-	    		  
-	    	  }else {
-	    		  
-	    		  if (isSelected) {
-	    			  cell.setBackground(new Color(0,150,200));
-	    			  cell.setForeground(Color.white);
-	    			  
-	    		  }else {
-	    			  
-	    			  cell.setBackground(Color.LIGHT_GRAY);
-	    			  cell.setForeground( Color.blue);
-	    		  }
-	    	  }
 	      }
+		    fontTurnoAsistido = new Font(table.getFont().getName(), Font.ITALIC, 11);
+		      if(esTurnoOcupado(table, row))
+		    {
+		    	  if (esTurnoAsistido(table, row)){
+		  	    	cell.setFont(fontTurnoAsistido);
+		  	    	if (isSelected) {
+		  	    		cell.setForeground(Color.gray);
+		  	    		cell.setBackground(new Color(176,196,222));
+		  	    	}else {
+		  	    		cell.setForeground(Color.gray);
+		  	    		cell.setBackground(new Color(200,200,200));
+		  	    	}
+		    	  }else {
+		    		  if (isSelected) {
+		    			  cell.setForeground(Color.black);
+		    			  cell.setBackground(new Color(176,196,222));
+		    		  }else {
+		    			  cell.setForeground(new Color(128,0,0));
+		    			  cell.setBackground(new Color(200,200,200));
+		    		  }
+		    	  }
+		    }else {
+		  	  if (isSelected) {
+				  cell.setBackground(new Color(135,206,250));
+				  cell.setForeground(Color.black);
+				  
+			  }else {
+				  
+				  cell.setBackground(new Color(220,220,220));
+				  cell.setForeground( Color.blue);
+			  }
+		
+		    }
 	      return cell;
 	   }
+	private boolean esTurnoAsistido(JTable turnos, int fila) {
+		// TODO Auto-generated method stub
+		return turnos.getValueAt(fila, 10) != null ? (Boolean) turnos.getValueAt(fila, 10): false;
+	}
 
 }
 
@@ -192,27 +200,37 @@ class GestionEncabezadoTabla  implements TableCellRenderer {
 public class Turnos extends JInternalFrame {
 	private static final int TURNOS_DIARIOS = 96;
 
+	protected static boolean esColumnaDeTurnos(int column) {
+		// TODO Auto-generated method stub
+		return (column > 0 && column < 5);
+	}
 	public static boolean esColumnaHora(int columna) {
 		// TODO Auto-generated method stub
 		return columna == 0;
 	}
+	
 	protected static boolean esColumnaNumerica(int columna) {
 		// TODO Auto-generated method stub
 		return columna > 2 && columna < 5;
 	}
-	
+	protected static boolean esColumnaTiempo(int columna) {
+		// TODO Auto-generated method stub
+		return (columna == 3);
+	}
 	private JTable turnos;
 	private DefaultTableModel modeloTurnos;
 	protected JComboBox<Profesional> cmbProfesional;
-	private JDateChooser fecha;
+	protected JDateChooser fecha;
 	private int cantidadInsert = 0;
 	private int cantidadUpdate = 0;
+
 	private int cuentaEliminados = 0;
 	private Format f = new SimpleDateFormat("HH:mm");
-
 	private JToolBar toolBar;
 	private JButton btnEliminar;
+
 	InternalFrameAdapter ifa = null;
+	private Profesional profesional;
 
 	public Turnos() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -269,7 +287,7 @@ public class Turnos extends JInternalFrame {
 		}
 		cmbProfesional.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				
+				setProfesional( (Profesional) cmbProfesional.getSelectedItem());
 			}
 		});
 		toolBar.add(cmbProfesional);
@@ -318,6 +336,8 @@ public class Turnos extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				fecha.setCalendar(Calendar.getInstance());
 				fecha.setDate(fecha.getCalendar().getTime());
+				setProfesional( (Profesional) cmbProfesional.getSelectedItem());
+				
 			}
 		});
 		
@@ -326,7 +346,6 @@ public class Turnos extends JInternalFrame {
 		// TODO Auto-generated method stub
 		this.cuentaEliminados++;
 	}
-
 	public void contarInsert() {
 		this.cantidadInsert++;
 	}
@@ -360,17 +379,17 @@ public class Turnos extends JInternalFrame {
 			this.setFila(turnos.getSelectedRows()[f]);
 			
 	}
+	protected boolean esCeldaEditable(int fila, int columna) {
+		// TODO Auto-generated method stub
+    	if (esColumnaDeTurnos(columna)) {
+    		return true;
+    	}
+		
+		return false;
+	}
 	boolean esColumnaDeTexto(int columna) {
 		// TODO Auto-generated method stub
 		return columna < 3;
-	}
-	protected static boolean esColumnaDeTurnos(int column) {
-		// TODO Auto-generated method stub
-		return (column > 0 && column < 5);
-	}
-	protected static boolean esColumnaTiempo(int columna) {
-		// TODO Auto-generated method stub
-		return (columna == 3);
 	}
 	private boolean esFilaEliminada(int fila) {
 		// TODO Auto-generated method stub
@@ -403,6 +422,10 @@ public class Turnos extends JInternalFrame {
 		return esValido;
 		
 	}
+	protected boolean esTrabajoCompletado(int fila) {
+		// TODO Auto-generated method stub
+		return turnos.getValueAt(fila, 10) != null ? ((Boolean) turnos.getValueAt(fila, 10)) : false;
+	}
 	protected boolean esTurnoDisponible(int fila) {
 		
 		return turnos.getValueAt(fila, 9) == null ||  (Boolean) turnos.getValueAt(fila, 9);
@@ -421,10 +444,12 @@ public class Turnos extends JInternalFrame {
 	public int getCantidadInsert() {
 		return cantidadInsert;
 	}
+
 	public int getCantidadUpdate() {
 		return cantidadUpdate;
 	}
-	private long getFecha(int fila, Date fechaDeReferencia) {
+	
+	protected long getFecha(int fila, Date fechaDeReferencia) {
 		// TODO Auto-generated method stub
 		Calendar c = Calendar.getInstance();
 		c.setTime(fechaDeReferencia);
@@ -442,7 +467,7 @@ public class Turnos extends JInternalFrame {
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		return c;
 	}
-	
+
 	private Calendar getFechaDeTurnoInicial(Date fecha) {
 		// TODO Auto-generated method stub
 		Calendar c = Calendar.getInstance();
@@ -453,27 +478,38 @@ public class Turnos extends JInternalFrame {
 
 	}
 
+	protected long getId(int fila) {
+		// TODO Auto-generated method stub
+		return (long) turnos.getValueAt(fila, 7);
+	}
+	protected double getImporte(int fila) {
+		// TODO Auto-generated method stub
+		return Util.setDouble(turnos.getValueAt(fila, 4));
+	}
+
+	protected JTable getJTurnos() {
+		return turnos;
+		
+	}
 	private String getNombre(int fila) {
 		// TODO Auto-generated method stub
 		return (String) turnos.getValueAt(fila, 1);
 	}
-
-	private String getTablaTurnos() {
+	protected Profesional getProfesional() {
 		// TODO Auto-generated method stub
-		return cmbProfesional.getSelectedItem().toString().split(",")[0].trim() + "_turnos";
+		return this.profesional;
 	}
-
 	private void getProfesionales() throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Conexion cnx = Conexion.getConexion();
 		cnx.conectar();
-		ResultSet rs = cnx.get("Select usuario, nombre, apellido from usuarios where rol = 'Profesional'");
+		ResultSet rs = cnx.get("Select id, usuario, nombre, apellido from usuarios where rol = 'Profesional'");
 		while(rs.next()) {
-			cmbProfesional.addItem( new Profesional(rs.getString("usuario"), rs.getString("nombre"), rs.getString("apellido")));
+			cmbProfesional.addItem(new Profesional(rs.getInt("id"), rs.getString("usuario"), rs.getString("nombre"), rs.getString("apellido")) );
 		}
 		cnx.desconectar();
+		setProfesional( (Profesional) cmbProfesional.getSelectedItem());
 	}
-
 	private int getSiguientesTurnosDisponibles(int fila) {
 		// TODO Auto-generated method stub
 		int filas = 0;
@@ -482,10 +518,16 @@ public class Turnos extends JInternalFrame {
 		}
 		return filas;
 	}
-
-	private int getTiempo(int r) {
+	protected int getTiempo(int fila) {
 		// TODO Auto-generated method stub
-		return Util.setInt(turnos.getValueAt(r, 3));
+		return Util.setInt(turnos.getValueAt(fila, 3));
+	}
+	protected JToolBar getToolBar() {
+		return toolBar;
+	}
+	protected String getTrabajo(int fila) {
+		// TODO Auto-generated method stub
+		return (String) modeloTurnos.getValueAt(fila, 2);
 	}
 	private void getTurnos(Date fechaDelTurno) throws ClassNotFoundException, SQLException {
 		
@@ -497,11 +539,12 @@ public class Turnos extends JInternalFrame {
 		
 		Conexion cnx = Conexion.getConexion();
 		cnx.conectar();
-		String sql = "select * from " + getTablaTurnos() + " where fecha between ? AND ?";
+		String sql = "select * from turnos where fecha between ? AND ? AND idProfesional = ?";
 
 		PreparedStatement pst = cnx.getConect().prepareStatement(sql);
 		pst.setTimestamp(1, new java.sql.Timestamp(getFechaDeTurnoInicial(fechaDelTurno).getTimeInMillis()));
 		pst.setTimestamp(2, new java.sql.Timestamp(getFechaDeTurnoFinal(fechaDelTurno).getTimeInMillis()));
+		pst.setInt(3, getProfesional().getId());
 		ResultSet rs = pst.executeQuery();
 		while(rs.next()) {
 			fechaDesdeTabla.setTime( rs.getTime("fecha"));
@@ -510,7 +553,8 @@ public class Turnos extends JInternalFrame {
 			modeloTurnos.setValueAt(rs.getString("trabajo"), indice, 2);
 			modeloTurnos.setValueAt(rs.getInt("tiempo"), indice, 3);
 			modeloTurnos.setValueAt(rs.getDouble("importe"), indice, 4);
-			modeloTurnos.setValueAt(rs.getInt("id"), indice, 7);
+			setId(rs.getLong("id"), indice);
+			setTrabajoCompletado(rs.getBoolean("hecho"), indice);
 			unSetFilaModificada(indice);
 			unSetFilaNueva(indice);
 		}
@@ -531,7 +575,7 @@ public class Turnos extends JInternalFrame {
 			
 			if (hayEliminados()) {
 				SqlBuilder sql = new SqlBuilder();
-				sql.crearSqlDelete(getTablaTurnos());
+				sql.crearSqlDelete("turnos");
 				PreparedStatement ps = cnx.getConect().prepareStatement(sql.getSqlStringDelete());
 				for(int r=0;r < turnos.getRowCount(); r++) {
 					if(esFilaEliminada(r) && !esFilaNueva(r)) {
@@ -546,17 +590,19 @@ public class Turnos extends JInternalFrame {
 			}
 			if (hayNuevos()) {
 				SqlBuilder sql = new SqlBuilder();
-				sql.crearSqlInsert(getTablaTurnos());
+				sql.crearSqlInsert("turnos");
 				PreparedStatement ps = cnx.getConect().prepareStatement(sql.getSqlStringInsert());
 				for(int r=0;r < turnos.getRowCount(); r++) {
 					if(esFilaNueva(r)) {
 						unSetFilaModificada(r);
 						unSetFilaNueva(r);
-						ps.setTimestamp(1, new java.sql.Timestamp(getFecha(r, fechaDelTurno)));
-						ps.setString(2, (String) turnos.getValueAt(r, 1));
-						ps.setString(3,  (String) turnos.getValueAt(r, 2));
-						ps.setInt(4,turnos.getValueAt(r, 3)!= null ? Integer.parseInt( (String) turnos.getValueAt(r, 3)):0);
-						ps.setDouble(5, turnos.getValueAt(r, 4)!= null? Double.parseDouble((String) turnos.getValueAt(r, 4)):0);
+						ps.setInt(1, getProfesional().getId());
+						ps.setTimestamp(2, new java.sql.Timestamp(getFecha(r, fechaDelTurno)));
+						ps.setString(3, (String) turnos.getValueAt(r, 1));
+						ps.setString(4, getTrabajo(r));
+						ps.setInt(5,turnos.getValueAt(r, 3)!= null ? Integer.parseInt( (String) turnos.getValueAt(r, 3)):0);
+						ps.setDouble(6, getImporte(r));
+						ps.setBoolean(7, esTrabajoCompletado(r));
 						ps.addBatch();
 					}
 				}
@@ -566,7 +612,7 @@ public class Turnos extends JInternalFrame {
 			}
 			if (hayActualizados()) {
 				SqlBuilder sql = new SqlBuilder();
-				sql.crearSqlUpdate(cmbProfesional.getSelectedItem().toString().split(",")[0].trim() + "_turnos");
+				sql.crearSqlUpdate("turnos");
 				PreparedStatement psUpd = cnx.getConect().prepareStatement(sql.getSqlStringUpdate());
 				for(int r=0;r < turnos.getRowCount(); r++) {
 					if(esFilaModificada(r)) {
@@ -574,10 +620,10 @@ public class Turnos extends JInternalFrame {
 						psUpd.setString(1, (String) turnos.getValueAt(r, 1));
 						psUpd.setString(2,  (String) turnos.getValueAt(r, 2));
 						psUpd.setInt(3,this.getTiempo(r));
-						psUpd.setDouble(4, turnos.getValueAt(r, 4)!= null? (double) turnos.getValueAt(r, 4) :0);
-						psUpd.setInt(5,turnos.getValueAt(r, 7)!= null ?  (int) turnos.getValueAt(r, 7):0);
+						psUpd.setDouble(4, getImporte(r));
+						psUpd.setBoolean(5, esTrabajoCompletado(r));
+						psUpd.setLong(6 ,getId(r));
 						psUpd.addBatch();
-						
 					}
 				}
 				actualizados = psUpd.executeBatch().length;
@@ -641,17 +687,12 @@ public class Turnos extends JInternalFrame {
 		modeloTurnos.addColumn("B");
 		modeloTurnos.addColumn("L");
 		modeloTurnos.addColumn("F");
-		turnos.getColumnModel().getColumn(5).setPreferredWidth(10);
-		turnos.getColumnModel().getColumn(6).setPreferredWidth(10);
-		turnos.getColumnModel().getColumn(7).setPreferredWidth(10);
-		turnos.getColumnModel().getColumn(8).setPreferredWidth(10);
-		turnos.getColumnModel().getColumn(9).setPreferredWidth(10);
-		turnos.getColumnModel().getColumn(5).setMaxWidth(10);
-		turnos.getColumnModel().getColumn(6).setMaxWidth(10);
-		turnos.getColumnModel().getColumn(7).setMaxWidth(10);
-		turnos.getColumnModel().getColumn(8).setMaxWidth(10);
-		turnos.getColumnModel().getColumn(9).setMaxWidth(10);
-		turnos.getColumnModel().getColumn(10).setMaxWidth(10);
+		turnos.getColumnModel().getColumn(5).setMaxWidth(1);
+		turnos.getColumnModel().getColumn(6).setMaxWidth(1);
+		turnos.getColumnModel().getColumn(7).setMaxWidth(1);
+		turnos.getColumnModel().getColumn(8).setMaxWidth(1);
+		turnos.getColumnModel().getColumn(9).setMaxWidth(1);
+		turnos.getColumnModel().getColumn(10).setMaxWidth(1);
 		turnos.getColumnModel().getColumn(0).setCellRenderer(new GestionCeldas(Color.lightGray, Color.blue));
 		turnos.getColumnModel().getColumn(3).setCellRenderer(new GestionCeldas(Color.lightGray, Color.blue));
 		turnos.getColumnModel().getColumn(4).setCellRenderer(new GestionCeldas(Color.lightGray, Color.blue));
@@ -735,9 +776,13 @@ public class Turnos extends JInternalFrame {
 			c.add(Calendar.MINUTE, 15);
 		}
 	}
+	private void setId(long id, int fila) {
+		// TODO Auto-generated method stub
+		modeloTurnos.setValueAt(id , fila, 7);
+	}
+
 	protected DefaultTableModel setModelo() {
 		return new DefaultTableModel() {
-			
 
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
@@ -778,24 +823,23 @@ public class Turnos extends JInternalFrame {
 			}
 		};
 	}
-
-	protected boolean esCeldaEditable(int fila, int columna) {
-		// TODO Auto-generated method stub
-    	if (esColumnaDeTurnos(columna)) {
-    		return true;
-    	}
-		
-		return false;
-	}
 	private void setNombre(int fila, String nombre) {
 		// TODO Auto-generated method stub
 		turnos.setValueAt(nombre, fila, 1);
+	}
+	protected void setProfesional(Profesional profesional) {
+		// TODO Auto-generated method stub
+		this.profesional=profesional;
+	}
+	
+	private void setTrabajoCompletado(boolean esCompletado, int fila) {
+		// TODO Auto-generated method stub
+		modeloTurnos.setValueAt(esCompletado, fila, 10);
 	}
 	private void setTurnoLibre(int fila) {
 		// TODO Auto-generated method stub
 		turnos.setValueAt((Boolean)true, fila, 9);
 	}
-	
 	protected void setTurnoOcupado(int fila) {
 		// TODO Auto-generated method stub
 		turnos.setValueAt((Boolean) false, fila, 9);
@@ -814,6 +858,7 @@ public class Turnos extends JInternalFrame {
 		turnos.setModel(modeloTurnos);
 		setColumnas();
 	}
+	
 	protected boolean tieneId( int fila) {
 		// TODO Auto-generated method stub
 		return Util.esNumero(turnos.getValueAt(fila, 7));
@@ -823,7 +868,6 @@ public class Turnos extends JInternalFrame {
 		turnos.setValueAt(Boolean.FALSE, fila, 8);
 		descontarEliminado();
 	}
-	
 	private void unSetFilaModificada(int indice) {
 		modeloTurnos.setValueAt(Boolean.FALSE, indice, 5);
 		descontarModificados();
@@ -831,12 +875,5 @@ public class Turnos extends JInternalFrame {
 	private void unSetFilaNueva(int indice) {
 		modeloTurnos.setValueAt(Boolean.FALSE, indice, 6);
 		descontarNuevos();
-	}
-	protected JTable getJTurnos() {
-		return turnos;
-		
-	}
-	protected JToolBar getToolBar() {
-		return toolBar;
 	}
 }

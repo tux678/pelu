@@ -1,13 +1,11 @@
 package administracion;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Objects;
 
-import conexion.Conexion;
 
 public abstract class Usuario {
+	private int id;
 	private String usuario;
 	private String clave;
 	private Rol categoria;
@@ -61,6 +59,12 @@ public abstract class Usuario {
 		usuario = usuario2;
 		nombre = nombre2;
 		apellido = apellido2;
+	}
+
+	public Usuario(int id, String usuario2, String nombre2, String apellido2) {
+		// TODO Auto-generated constructor stub
+		this(usuario2, nombre2, apellido2);
+		this.setId(id);
 	}
 
 	public String getUsuario() {
@@ -129,5 +133,13 @@ public abstract class Usuario {
 		return usuario + ", " + ( categoria != null ?  categoria  + ", ": "") + nombre + ", " + apellido + ", " + (direccion != null ? direccion  + ", ": "" )
 				+ (localidad != null ? localidad  + ", " : "" ) + (telefono != null ? telefono + ", " : "" ) + (email != null ? email + ", " : "" )
 				+ (fechaDeIngreso != null ? fechaDeIngreso : "");
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

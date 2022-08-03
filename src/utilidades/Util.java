@@ -43,6 +43,18 @@ public final class Util {
 		// TODO Auto-generated method stub
 		return !(((String) texto).length() > 0);
 	}
+
+	public static double setDouble(Object valor) {
+		// TODO Auto-generated method stub
+		double valorDouble = 0;
+		if (valor == null) {
+			
+		}else if (valor instanceof String)
+			valorDouble = Double.parseDouble(((String) valor).trim());
+		else
+			valorDouble = (double) valor;
+		return valorDouble;
+	}
 	
 }
 
