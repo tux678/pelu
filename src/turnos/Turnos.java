@@ -16,6 +16,7 @@ import utilidades.Util;
 
 import javax.swing.JScrollPane;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -258,6 +259,9 @@ public class Turnos extends JInternalFrame {
 						((JInternalFrame) evt.getSource()).setDefaultCloseOperation(EXIT_ON_CLOSE);
 						((JInternalFrame) evt.getSource()).dispose();
 					}
+				}else {
+					((JInternalFrame) evt.getSource()).dispose();
+					
 				}
 			}
 		}));
@@ -342,6 +346,7 @@ public class Turnos extends JInternalFrame {
 		});
 		
 	}
+
 	private void contarEliminado() {
 		// TODO Auto-generated method stub
 		this.cuentaEliminados++;

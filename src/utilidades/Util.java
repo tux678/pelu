@@ -2,6 +2,8 @@ package utilidades;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 public final class Util {
@@ -55,6 +57,15 @@ public final class Util {
 			valorDouble = (double) valor;
 		return valorDouble;
 	}
-	
-}
+	public static boolean esFechaValida(String fecha) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+}	
 

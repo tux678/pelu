@@ -17,5 +17,24 @@
 	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="lib" path="recursos"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/barcodes-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/commons-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/font-asian-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/forms-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/hyph-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/io-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/kernel-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/layout-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/pdfa-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/sign-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/styled-xml-parser-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/iText7-Core-7.2.3/svg-7.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/slf4j-api-1.7.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/slf4j-log4j12-1.7.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/log4j-1.2.17/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/DJNativeSwing-SWT-1-0-2/DJNativeSwing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cguxt/Downloads/soft/java/swt-4.25M1-win32-win32-x86_64/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

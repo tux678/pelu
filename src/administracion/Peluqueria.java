@@ -2,12 +2,20 @@ package administracion;
 
 import java.awt.EventQueue;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import conexion.Conexion;
+import informes.Diario;
+import informes.InfoDiario;
+import informes.VistaPrevia;
 import login.Login;
 import turnos.MisTurnos;
 import turnos.Turnos;
@@ -26,6 +34,18 @@ import javax.swing.JSeparator;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+
+import com.toedter.calendar.JDateChooser;
+
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
+
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.Dimension;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 @SuppressWarnings("serial")
 public class Peluqueria extends JFrame {
@@ -103,7 +123,8 @@ public class Peluqueria extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int respuesta = JOptionPane.showConfirmDialog(null, "Quiere abandonar la aplicacion?", "Jara",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				int respuesta = JOptionPane.showConfirmDialog(null, "Quiere abandonar la aplicacion?", "Jara",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (respuesta == JOptionPane.YES_OPTION) {
 					((JFrame) e.getSource()).dispose();
 				}
@@ -240,12 +261,39 @@ public class Peluqueria extends JFrame {
 		
 		JMenu mnInformes = new JMenu("Informes");
 		menuBar.add(mnInformes);
+		
+		JMenuItem mnInformeDiario = new JMenuItem("Diario");
+		mnInformeDiario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SimpleDateFormat formatoLocal = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					new InfoDiario(JOptionPane.showInputDialog("Ingrese la fecha para el informe", formatoLocal.format( Calendar.getInstance(new Locale("es", "ES")).getTime())));
+				} catch (ClassNotFoundException | SQLException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		mnInformes.add(mnInformeDiario);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NativeInterface.open();
+				VistaPrevia frame = new VistaPrevia();
+				escritorio.add(frame);
+				frame.setVisible(true);
+			}
+		});
+		mnInformes.add(mntmNewMenuItem);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
 		
 		escritorio = new JDesktopPane();
+		escritorio.setBounds(new Rectangle(0, 0, 50, 0));
 		contentPane.add(escritorio, "name_183461914586100");
 	}
 	
@@ -263,5 +311,11 @@ public class Peluqueria extends JFrame {
 	public static Usuario getUsuarioActivo() {
 		// TODO Auto-generated method stub
 		return usuarioActivo;
+	}
+
+	public JDesktopPane getEscritorio() {
+		return escritorio;
+		// TODO Auto-generated method stub
+		
 	}
 }

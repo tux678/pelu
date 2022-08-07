@@ -35,12 +35,6 @@ public class MisTurnos extends Turnos {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-//					try {
-//						guardarTrabajo(getJTurnos().getSelectedRow());
-//					} catch (ClassNotFoundException | SQLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
 				}
 			}
 		});
